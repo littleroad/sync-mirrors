@@ -1,0 +1,18 @@
+[Unit]
+Description=Sync mirrors
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/data/work/mirrors/sync.sh
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/data/mirrors/
+LimitNOFILE=100000
+OOMScoreAdjust=1000
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+CPUSchedulingPolicy=idle
+Nice=19
+PrivateTmp=yes
+NoNewPrivileges=yes

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Sync mirrors
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=2h
+AccuracySec=2h
+ 
+[Install]
+WantedBy=timers.target

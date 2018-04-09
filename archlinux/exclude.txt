@@ -1,0 +1,6 @@
+*.links.tar.gz*
+/other
+/sources
+/iso
+/*staging
+/*unstable
