@@ -16,9 +16,10 @@ do_sync_one() {
 
     export TARGET_DIR="$root/$DISTRO"
     export TMP_DIR="$root/.tmp/$DISTRO"
-    export LOG_FILE="$root/.log/$DISTRO.log"
+    export LOG_DIR="$root/.log/$DISTRO/$(date +%Y-%m-%d)"
+    export LOG_FILE="$LOG_DIR/$(date +%H:%M:%S).log"
 
-    mkdir -p "$TMP_DIR" "$TARGET_DIR" "$root/.lock" "$root/.log"
+    mkdir -p "$TMP_DIR" "$TARGET_DIR" "$root/.lock" "$LOG_DIR"
     touch "$LOG_FILE"
     flock "$root/.lock/$DISTRO.lock" ./sync.sh
 }
