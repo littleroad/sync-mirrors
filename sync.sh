@@ -16,11 +16,22 @@ do_sync_one() {
 
     export TARGET_DIR="$root/$DISTRO"
     export TMP_DIR="$root/.tmp/$DISTRO"
-    export LOG_DIR="$root/.log/$DISTRO/$(date +%Y-%m-%d)"
-    export LOG_FILE="$LOG_DIR/$(date +%H:%M:%S).log"
+    export LOG_DIR="$root/.log"
+    export LOG_FILE="$LOG_DIR/$DISTRO.log"
 
     mkdir -p "$TMP_DIR" "$TARGET_DIR" "$root/.lock" "$LOG_DIR"
     touch "$LOG_FILE"
+    [[ -f /etc/logrotate.d/sync-mirrors ]] || cat > sync-mirrors <<EOF
+$LOG_DIR/*.log {
+   missingok
+   create 0600 root root
+   copytruncate
+   notifempty
+   compress
+   maxsize 2M
+}
+EOF
+
     flock "$root/.lock/$DISTRO.lock" ./sync.sh
 }
 
